@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-<div class="register__content">
+<div class="form__content">
 
-    <div class="register__heading">
-        <h1 class="register__title">会員登録</h1>
+    <div class="form__heading">
+        <h1 class="form__title">会員登録</h1>
     </div>
 
     <form class="register__form" action="{{ route('register') }}" method="post" novalidate>
@@ -67,8 +67,8 @@
         </div>
     </form>
 
-    <div class="register__footer">
-        <a class="register__login-link" href="/login">ログインはこちら</a>
+    <div class="form__footer">
+        <a class="login-link" href="/login">ログインはこちら</a>
     </div>
 
 </div>
