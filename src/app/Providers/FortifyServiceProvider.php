@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LoginRequest as MyLoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\ResetUserPassword;
@@ -18,6 +18,8 @@ use Laravel\Fortify\Fortify;
 
 use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
 use Illuminate\Http\RedirectResponse;
+
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -35,8 +37,8 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(
-            \Laravel\Fortify\Http\Requests\LoginRequest::class,
-            \App\Http\Requests\LoginRequest::class
+            FortifyLoginRequest::class,
+            MyLoginRequest::class
         );
         Fortify::createUsersUsing(CreateNewUser::class);
 
@@ -48,7 +50,7 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.login');
         });
 
-        Fortify::authenticateUsing(function (LoginRequest $request) {
+        Fortify::authenticateUsing(function (MyLoginRequest $request) {
             $user = User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
