@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="form__content">
+<div class="form__container">
 
     <div class="form__heading">
         <h1 class="form__title">ログイン</h1>
@@ -14,26 +14,26 @@
     <form class="login__form" action="{{ route('login') }}" method="post" novalidate>
         @csrf
 
-        <div class="form__item">
+        <div class="form__group">
             <label class="form__label">
                 <span class="label-text">メールアドレス</span>
                 <input class="form__input" type="email" name="email" value="{{ old('email') }}" />
             </label>
             <div class="form__error">
                 @error('email')
-                    <p class="error">{{ $message }}</p>
+                    <p class="form__error-text">{{ $message }}</p>
                 @enderror
             </div>
         </div>
 
-        <div class="form__item">
+        <div class="form__group">
             <label class="form__label">
                 <span class="label-text">パスワード</span>
                 <input class="form__input" type="password" name="password" />
             </label>
             <div class="form__error">
                 @error('password')
-                    <p class="error-message">{{ $message }}</p>
+                    <p class="form__error-text">{{ $message }}</p>
                 @enderror
             </div>
         </div>

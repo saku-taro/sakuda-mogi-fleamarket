@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileEditController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('mypage.edit');
-});
+Route::get('/', [ProfileEditController::class, 'index']);
 
-// Route::get('/', function () {
-//     return view('auth.register');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage/profile', [ProfileEditController::class, 'edit']);
+    Route::post('/mypage/update', [ProfileEditController::class, 'update']);
+});

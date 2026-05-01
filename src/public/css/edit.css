@@ -1,4 +1,4 @@
-.form__content {
+.form__container {
     margin: 0 10%;
     padding: 0 30px;
 }
@@ -24,6 +24,35 @@
     gap: 20px;
 }
 
+.form__item-flex {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.icon-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+}
+
+.form__file-button {
+    display: inline-block;
+    border: 1px solid #ff0000;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.form__input--file {
+    display: none;
+}
+
 .form__label {
     display: flex;
     flex-direction: column;
@@ -44,14 +73,14 @@
 
 .form__error {
     height: 20px;
-    color: #ff0000;
-    text-align: left;
-    font-size: 13px;
     margin-top: 5px;
 }
 
-.error-message {
+.form__error-text {
     margin: 0;
+    color: #ff0000;
+    font-size: 13px;
+    text-align: left;
 }
 
 .form__button {

@@ -15,7 +15,9 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <img class="header_logo" src="{{ asset('img/coachtech_header_logo.png') }}" alt="coachtech">
+            <div class="header__logo">
+                <img class="header_logo-img" src="{{ asset('img/coachtech_header_logo.png') }}" alt="coachtech">
+            </div>
             @yield('nav')
         </div>
     </header>
