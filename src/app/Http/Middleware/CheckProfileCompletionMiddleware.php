@@ -23,10 +23,14 @@ class CheckProfileCompletionMiddleware
 
         $user = Auth::user();
 
-        if ($user && !$user->is_profile_completed && !$request->is('mypage/profile', 'mypage/update')) {
-            return redirect('/mypage/profile');
-        }
+        if (!$user->is_profile_completed) {
 
+            if (!$request->is('mypage/profile', 'mypage/update', 'logout')) {
+                return redirect('/mypage/profile');
+            }
+
+            return $next($request);
+        }
         return $next($request);
     }
 }

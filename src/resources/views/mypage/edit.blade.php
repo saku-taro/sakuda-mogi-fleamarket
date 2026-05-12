@@ -15,7 +15,7 @@
             <li class="header-nav__item">
                 <form action="/logout" method="post">
                     @csrf
-                    <button class="header-nav__logout-button">ログアウト</button>
+                    <button class="header-nav__logout-button" type="submit">ログアウト</button>
                 </form>
             </li>
             <li class="header-nav__item">

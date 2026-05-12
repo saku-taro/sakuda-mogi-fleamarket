@@ -56,14 +56,6 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-        // Fortify::authenticateUsing(function (MyLoginRequest $request) {
-        //     $user = User::where('email', $request->email)->first();
-        //     if ($user && Hash::check($request->password, $user->password)) {
-        //         return $user;
-        //     }
-        //     return null;
-        // });
-
         $this->app->instance(LogoutResponseContract::class, new class implements LogoutResponseContract {
             public function toResponse($request)
             {

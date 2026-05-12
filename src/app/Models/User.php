@@ -47,4 +47,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_profile_completed' => 'boolean',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Item::class, 'favorites');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

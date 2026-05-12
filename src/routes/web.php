@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileEditController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -15,9 +16,12 @@ use App\Http\Controllers\ProfileEditController;
 |
 */
 
-Route::get('/', [ProfileEditController::class, 'index']);
+Route::get('/', [ProfileEditController::class, 'index'])->middleware('check.profile');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', [ProfileEditController::class, 'edit']);
-    Route::post('/mypage/update', [ProfileEditController::class, 'update']);
+
+    Route::middleware(['check.profile'])->group(function () {
+        Route::get('/mypage', [ProfileEditController::class, '/mypage/edit']);
+    });
 });
