@@ -20,6 +20,7 @@ Route::get('/', [ProfileEditController::class, 'index'])->middleware('check.prof
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', [ProfileEditController::class, 'edit']);
+    Route::patch('/mypage/update', [ProfileEditController::class, 'update']);
 
     Route::middleware(['check.profile'])->group(function () {
         Route::get('/mypage', [ProfileEditController::class, '/mypage/edit']);

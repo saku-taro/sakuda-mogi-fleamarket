@@ -6,28 +6,29 @@
 
 @section('nav')
 <div class="header__search">
-    <input class="search-form__item-input" type="text" name="keyword" value="{{ old('keyword') }}">
+    <input class="search-form__item-input" type="text" name="keyword" value="{{ old('keyword') }} placeholder="なにをお探しですか？"">
 </div>
 
 <nav class="header__nav-group">
     <ul class="header-nav">
         @if (Auth::check())
             <li class="header-nav__item">
-                <form action="/logout" method="post">
+                <form class="header-nav__logout-form" action="/logout" method="post">
                     @csrf
                     <button class="header-nav__logout-button" type="submit">ログアウト</button>
                 </form>
             </li>
+        @else
+            <li class="header-nav__item">
+                <a class="header-nav__link" href="/login">ログイン</a>
+            </li>
+        @endif
             <li class="header-nav__item">
                 <a class="header-nav__link" href="/mypage">マイページ</a>
             </li>
             <li class="header-nav__item">
-                <form action="出品" method="post">
-                    @csrf
-                    <button class="header-nav__listing-button">出品</button>
-                </form>
+                    <a class="header-nav__listing-link">出品</a>
             </li>
-        @endif
     </ul>
 </nav>
 @endsection
@@ -41,25 +42,35 @@
 
     <form class="edit__form" action="/mypage/update" enctype="multipart/form-data" method="post" novalidate>
         @csrf
+        @method('PATCH')
 
         {{-- 「選択した瞬間に円形のプレビューを表示させたい」場合は、JavaScriptが必要 --}}
         <div class="form__group">
             <div class="form__item-flex">
-                <div class="icon-preview">
+                {{-- <div class="icon-preview">
                     @if(Auth::user()->profile_image)
-                        <img class="circle-image" src="{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}">
+                        <img id="preview" class="circle-image" src="{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}">
                     @else
+                        <img id="preview" class="circle-image" style="display: none;">
                         <div class="no-image-circle"></div>
+                    @endif
+                </div> --}}
+                <div class="icon-preview">
+                    <img id="preview" class="circle-image"
+                        src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : '' }}"
+                        style="{{ Auth::user()->profile_image ? '' : 'display: none;' }}">
+                    @if(!Auth::user()->profile_image)
+                        <div id="no-image" class="no-image-circle"></div>
                     @endif
                 </div>
                 <label class="form__label">
                     <span class="form__file-button">画像を選択する</span>
-                    <input class="form__input--file" type="file" accept="image/*" name="profile_image" />
+                    <input id="image-input" class="form__input--file" type="file" accept="image/*" name="profile_image" />
                 </label>
             </div>
             <div class="form__error">
                 @error('profile_image')
-                    <p class="error">{{ $message }}</p>
+                    <p class="form__error-text">{{ $message }}</p>
                 @enderror
             </div>
         </div>
@@ -67,7 +78,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">ユーザー名</span>
-                <input class="form__input" type="text" name="name" value="{{ old('name') }}" />
+                <input class="form__input" type="text" name="name" value="{{ old('name', $user->name) }}" />
             </label>
             <div class="form__error">
                 @error('name')
@@ -79,7 +90,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">郵便番号</span>
-                <input class="form__input" type="text" name="postcode" value="{{ old('postcode') }}" inputmode="numeric" />
+                <input class="form__input" type="text" name="postcode" value="{{ old('postcode', $user->postcode) }}" inputmode="numeric" />
             </label>
             <div class="form__error">
                 @error('postcode')
@@ -91,7 +102,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">住所</span>
-                <input class="form__input" type="text" name="address" value="{{ old('address') }}" />
+                <input class="form__input" type="text" name="address" value="{{ old('address', $user->address) }}" />
             </label>
             <div class="form__error">
                 @error('address')
@@ -103,7 +114,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">建物名</span>
-                <input class="form__input" type="text" name="building" value="{{ old('building') }}" />
+                <input class="form__input" type="text" name="building" value="{{ old('building', $user->building) }}" />
             </label>
             <div class="form__error">
                 @error('building')
@@ -119,3 +130,26 @@
 
 </div>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('image-input');
+    if (!input) return;
+
+    input.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('preview');
+        const noImage = document.getElementById('no-image');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                if (noImage) noImage.style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+});
+</script>
