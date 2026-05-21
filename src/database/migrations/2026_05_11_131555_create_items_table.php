@@ -20,8 +20,8 @@ class CreateItemsTable extends Migration
             $table->string('brand_name')->nullable();
             $table->text('description');
             $table->integer('price');
-            $table->tinyInteger('status')->comment('0:良好、1:目立った傷や汚れなし...');
-            $table->tinyInteger('trading_status')->default(0)->comment('0:出品中、1:取引中...');
+            $table->tinyInteger('status')->comment('0:良好、1:目立った傷や汚れなし、2:やや傷や汚れあり、3:状態が悪い');
+            $table->tinyInteger('trading_status')->default(0)->comment('0:出品中、1:売却済');
             $table->timestamps();
         });
     }

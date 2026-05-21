@@ -8,7 +8,7 @@
 <div class="form__container">
 
     <div class="form__heading">
-        <h1 class="form__title">会員登録</h1>
+        <h2 class="form__title">会員登録</h2>
     </div>
 
     <form class="register__form" action="{{ route('register') }}" method="post" novalidate>
@@ -68,7 +68,7 @@
     </form>
 
     <div class="form__footer">
-        <a class="login-link" href="/login">ログインはこちら</a>
+        <a class="login-link" href="{{ route('login') }}">ログインはこちら</a>
     </div>
 
 </div>

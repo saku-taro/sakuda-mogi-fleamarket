@@ -24,7 +24,12 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function images()
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function item_images()
     {
         return $this->hasMany(ItemImage::class);
     }

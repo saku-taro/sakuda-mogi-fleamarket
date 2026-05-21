@@ -15,10 +15,44 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <div class="header__logo">
-                <img class="header_logo-img" src="{{ asset('img/coachtech_header_logo.png') }}" alt="coachtech">
-            </div>
-            @yield('nav')
+            <h1 class="header__logo">
+                <a class="header__logo-link" href="{{ route('item.index') }}">
+                    <img class="header_logo-img" src="{{ asset('img/coachtech_header_logo.png') }}" alt="coachtech">
+                </a>
+            </h1>
+
+            @if (!Request::routeIs('login') && !Request::routeIs('register'))
+                <div class="header__search">
+                    <form class="search-form" action="{{ route('item.index') }}" method="GET">
+                        <input type="hidden" name="tab" value="{{ $currentTab ?? request('tab', 'all') }}">
+
+                        <input class="search-form__item-input" type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
+                    </form>
+                </div>
+
+                <nav class="header__nav-group">
+                    <ul class="header-nav">
+                        @if (Auth::check())
+                            <li class="header-nav__item">
+                                <form class="header-nav__logout-form" action="{{ route('logout') }}" method="post">
+                                @csrf
+                                    <button class="header-nav__logout-button" type="submit">ログアウト</button>
+                                </form>
+                            </li>
+                        @else
+                            <li class="header-nav__item">
+                                <a class="header-nav__link" href="{{ route('login') }}">ログイン</a>
+                            </li>
+                        @endif
+                        <li class="header-nav__item">
+                            <a class="header-nav__link" href="{{ route('profile.show') }}">マイページ</a>
+                        </li>
+                        <li class="header-nav__item">
+                            <a class="header-nav__listing-link" href="{{ route('item.create') }}">出品</a>
+                        </li>
+                    </ul>
+                </nav>
+            @endif
         </div>
     </header>
 

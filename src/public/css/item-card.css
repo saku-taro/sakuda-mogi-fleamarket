@@ -1,0 +1,67 @@
+/* 💡 商品カード全体の基本スタイル */
+.item-card {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.item-card:hover {
+    cursor: pointer;
+    border: 2px solid #ff5555;
+}
+
+.item-card__inner {
+    width: 100%;
+    position: relative;
+}
+
+.item-card__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.item-card__no-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-card__no-image-text {
+    color: #666666;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 商品登録できるようになったら文字数を確認して確認 */
+.item-card__name {
+    margin-top: 10px; /* 💡 画像（またはNO IMAGEの箱）との間に心地よい隙間を作る */
+    font-size: 16px; /* 💡 小さすぎず読みやすいフォントサイズ */
+    color: #000000;
+    /* 💡 【超重要】商品名が長すぎる時、2行まで表示して、3行目以降は自動で「...」にする魔法の記述 */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 表示したい最大行数 */
+    overflow: hidden;
+}
+
+/* 購入の設定を確認してから確認 */
+.item-card__badge--sold {
+    position: absolute;
+    top: 10px; /* 上からの位置（お好みで調整） */
+    left: 10px; /* 左からの位置（お好みで調整） */
+    z-index: 10; /* 画像やNO IMAGEの箱よりも確実に前に出す */
+
+    background-color: #ff3333; /* フリマアプリらしい鮮やかな赤 */
+    color: #ffffff; /* 白文字 */
+    font-size: 13px;
+    font-weight: bold;
+    padding: 4px 10px; /* バッジの内側の余白（上下 左右） */
+    border-radius: 4px; /* ほんの少し角を丸くして今風に */
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 軽めの影をつけて立体感を出す */
+}

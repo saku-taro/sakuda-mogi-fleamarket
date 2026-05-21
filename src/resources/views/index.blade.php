@@ -1,34 +1,32 @@
 @extends('layouts.app')
 
 @section('css')
-
+<link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/item-card.css') }}" />
 @endsection
 
-@section('nav')
-<div class="header__search">
-    <input class="search-form__item-input" type="text" name="keyword" value="{{ old('keyword') }}" placeholder="なにをお探しですか？">
+@section('content')
+
+<div class="item-tabs">
+    <a class="tab-button {{ $currentTab === 'all' ? 'active' : '' }}" href="{{ route('item.index', ['tab' => 'all', 'keyword' => request('keyword')]) }}">
+        おすすめ
+    </a>
+    <a class="tab-button {{ $currentTab === 'mylist' ? 'active' : '' }}" href="{{ route('item.index', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}">
+        マイリスト
+    </a>
 </div>
 
-<nav class="header__nav-group">
-    <ul class="header-nav">
-        @if (Auth::check())
-            <li class="header-nav__item">
-                <form class="header-nav__logout-form" action="/logout" method="post">
-                    @csrf
-                    <button class="header-nav__logout-button" type="submit">ログアウト</button>
-                </form>
-            </li>
+<div class="item-container">
+    <div class="item-grid">
+        @if($currentTab === 'all')
+            @foreach($allItems as $item)
+                @include('item-card', ['item' => $item])
+            @endforeach
         @else
-            <li class="header-nav__item">
-                <a class="header-nav__link" href="/login">ログイン</a>
-            </li>
+            @foreach($mylistItems as $item)
+                @include('item-card', ['item' => $item])
+            @endforeach
         @endif
-            <li class="header-nav__item">
-                <a class="header-nav__link" href="/mypage">マイページ</a>
-            </li>
-            <li class="header-nav__item">
-                    <a class="header-nav__listing-link">出品</a>
-            </li>
-    </ul>
-</nav>
+    </div>
+</div>
 @endsection

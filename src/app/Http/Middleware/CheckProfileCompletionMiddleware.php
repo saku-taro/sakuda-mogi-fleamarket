@@ -25,8 +25,8 @@ class CheckProfileCompletionMiddleware
 
         if (!$user->is_profile_completed) {
 
-            if (!$request->is('mypage/profile', 'mypage/update', 'logout')) {
-                return redirect('/mypage/profile');
+            if (!$request->routeIs('profile.edit', 'profile.update', 'logout')) {
+                return redirect()->route('profile.edit');;
             }
 
             return $next($request);

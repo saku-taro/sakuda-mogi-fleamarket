@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileEditController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,13 +17,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ProfileEditController::class, 'index'])->middleware('check.profile');
+Route::get('/', [ItemController::class, 'index'])->middleware('check.profile')->name('item.index');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage/profile', [ProfileEditController::class, 'edit']);
-    Route::patch('/mypage/update', [ProfileEditController::class, 'update']);
+    Route::get('/mypage', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::middleware(['check.profile'])->group(function () {
-        Route::get('/mypage', [ProfileEditController::class, '/mypage/edit']);
+        Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
+        Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
     });
 });
