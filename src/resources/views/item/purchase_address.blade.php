@@ -14,10 +14,12 @@
     <form class="edit__form" action="{{ route('purchase.updateAddress', ['item_id' => $item->id]) }}" method="post" novalidate>
         @csrf
 
+        <input type="hidden" name="payment_method" value="{{ session('payment_method', old('payment_method')) }}">
+
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">郵便番号</span>
-                <input class="form__input" type="text" name="shipping_postcode" inputmode="numeric" />
+                <input class="form__input" type="text" name="shipping_postcode" value="{{ old('shipping_postcode') }}" inputmode="numeric"/>
             </label>
             <div class="form__error">
                 @error('shipping_postcode')
@@ -29,7 +31,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">住所</span>
-                <input class="form__input" type="text" name="shipping_address"/>
+                <input class="form__input" type="text" name="shipping_address" value="{{ old('shipping_address') }}"/>
             </label>
             <div class="form__error">
                 @error('shipping_address')
@@ -41,7 +43,7 @@
         <div class="form__group">
             <label class="form__label">
                 <span class="label-text">建物名</span>
-                <input class="form__input" type="text" name="shipping_building"/>
+                <input class="form__input" type="text" name="shipping_building" value="{{ old('shipping_building') }}"/>
             </label>
             <div class="form__error">
                 @error('shipping_building')

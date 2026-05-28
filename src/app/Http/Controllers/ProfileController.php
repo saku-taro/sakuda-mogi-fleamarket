@@ -50,6 +50,6 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return redirect('/mypage');
+        return redirect('/');
     }
 }

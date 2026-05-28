@@ -121,8 +121,12 @@
                 @forelse($item->comments ?? [] as $comment)
                     <div class="item-detail__comment-item">
                         <div class="item-detail__comment-user">
-                            <img class="item-detail__comment-avatar" src="{{ $comment->user?->profile_image ? asset('storage/' . $comment->user->profile_image) : asset('images/default-avatar.png') }}">
-                            <span class="item-detail__comment-username">{{ $comment->user?->name ?? '退会済みユーザー' }}</span>
+                            @if($comment->user->profile_image)
+                                <img class="item-detail__comment-avatar" src="{{ asset('storage/' . $comment->user->profile_image) }}" alt="プロフィール画像">
+                            @else
+                                <div class="item-detail__comment-avatar-placeholder"></div>
+                            @endif
+                            <span class="item-detail__comment-username">{{ $comment->user->name }}</span>
                         </div>
                         <p class="item-detail__comment-body">{{ $comment->body }}</p>
                     </div>

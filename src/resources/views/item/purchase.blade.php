@@ -76,7 +76,6 @@
                             <span class="purchase-summary__label">商品代金</span>
                             <span class="purchase-summary__value">¥{{ number_format($item->price) }}</span>
                             <input type="hidden" name="total_price" value="{{ $item->price }}">
-                            <input type="hidden" name="shipping_building" value="{{ session('shipping_building', $user->building) }}">
                         </div>
                         <div class="purchase-summary__item">
                             <span class="purchase-summary__label">支払い方法</span>

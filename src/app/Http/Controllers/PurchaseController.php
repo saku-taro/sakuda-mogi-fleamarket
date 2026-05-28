@@ -52,7 +52,7 @@ class PurchaseController extends Controller
             $item->update(['trading_status' => '1']);
             DB::commit();
 
-            session()->forget(['shipping_postcode', 'shipping_address', 'shipping_building']);
+            session()->forget(['payment_method', 'shipping_postcode', 'shipping_address', 'shipping_building']);
             return redirect()->route('item.index');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -70,6 +70,7 @@ class PurchaseController extends Controller
     {
 
         session([
+            'payment_method' => $request->payment_method,
             'shipping_postcode' => $request->shipping_postcode,
             'shipping_address' => $request->shipping_address,
             'shipping_building' => $request->shipping_building,
