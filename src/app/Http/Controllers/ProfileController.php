@@ -21,9 +21,9 @@ class ProfileController extends Controller
             $query->where('user_id', $user->id);
         })->with('item_images')->get();
 
-        $currentTab = $request->query('tab', 'sell');
+        $currentPage = $request->query('page', 'sell');
 
-        return view('mypage.profile', compact('user', 'sellItems', 'buyItems', 'currentTab'));
+        return view('mypage.profile', compact('user', 'sellItems', 'buyItems', 'currentPage'));
     }
 
     public function edit(Request $request)
@@ -50,6 +50,6 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return redirect('/');
+        return redirect('/mypage');
     }
 }

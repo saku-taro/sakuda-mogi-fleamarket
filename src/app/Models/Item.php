@@ -43,4 +43,9 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'favorites');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

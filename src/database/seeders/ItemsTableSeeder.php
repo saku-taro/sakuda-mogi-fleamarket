@@ -22,7 +22,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 15000,
             'status' => 0,
         ]);
-        $item1->images()->create(['image_path' => 'item_images/mens-watch.jpg']);
+        $item1->item_images()->create(['image_path' => 'item_images/mens-watch.jpg']);
         $item1->categories()->attach([1, 5, 12]);
 
         $item2 = Item::create([
@@ -33,7 +33,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 5000,
             'status' => 1,
         ]);
-        $item2->images()->create(['image_path' => 'item_images/HDD-harddisk.jpg']);
+        $item2->item_images()->create(['image_path' => 'item_images/HDD-harddisk.jpg']);
         $item2->categories()->attach([2]);
 
         $item3 = Item::create([
@@ -44,8 +44,8 @@ class ItemsTableSeeder extends Seeder
             'price' => 300,
             'status' => 2,
         ]);
-        $item3->images()->create(['image_path' => 'item_images/onion.jpg']);
-        $item3->categories()->attach([]);
+        $item3->item_images()->create(['image_path' => 'item_images/onion.jpg']);
+        $item3->categories()->attach([11]);
 
         $item4 = Item::create([
             'user_id' => 1,
@@ -55,7 +55,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 4000,
             'status' => 3,
         ]);
-        $item4->images()->create(['image_path' => 'item_images/leather-shoes.jpg']);
+        $item4->item_images()->create(['image_path' => 'item_images/leather-shoes.jpg']);
         $item4->categories()->attach([1, 5]);
 
         $item5 = Item::create([
@@ -66,7 +66,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 45000,
             'status' => 0,
         ]);
-        $item5->images()->create(['image_path' => 'item_images/laptop.jpg']);
+        $item5->item_images()->create(['image_path' => 'item_images/laptop.jpg']);
         $item5->categories()->attach([2]);
 
         $item6 = Item::create([
@@ -77,7 +77,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 3000,
             'status' => 1,
         ]);
-        $item6->images()->create(['image_path' => 'item_images/mic.jpg']);
+        $item6->item_images()->create(['image_path' => 'item_images/mic.jpg']);
         $item6->categories()->attach([2]);
 
         $item7 = Item::create([
@@ -88,7 +88,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 3500,
             'status' => 2,
         ]);
-        $item7->images()->create(['image_path' => 'item_images/shoulder-bag.jpg']);
+        $item7->item_images()->create(['image_path' => 'item_images/shoulder-bag.jpg']);
         $item7->categories()->attach([1, 4]);
 
         $item8 = Item::create([
@@ -99,7 +99,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 500,
             'status' => 3,
         ]);
-        $item8->images()->create(['image_path' => 'item_images/tumbler.jpg']);
+        $item8->item_images()->create(['image_path' => 'item_images/tumbler.jpg']);
         $item8->categories()->attach([10]);
 
         $item9 = Item::create([
@@ -110,7 +110,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 4000,
             'status' => 0,
         ]);
-        $item9->images()->create(['image_path' => 'item_images/coffee-mill.jpg']);
+        $item9->item_images()->create(['image_path' => 'item_images/coffee-mill.jpg']);
         $item9->categories()->attach([10]);
 
         $item10 = Item::create([
@@ -121,7 +121,7 @@ class ItemsTableSeeder extends Seeder
             'price' => 2500,
             'status' => 1,
         ]);
-        $item10->images()->create(['image_path' => 'item_images/makeup-tools.jpg']);
+        $item10->item_images()->create(['image_path' => 'item_images/makeup-tools.jpg']);
         $item10->categories()->attach([6]);
     }
 }

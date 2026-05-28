@@ -14,4 +14,14 @@ class Comment extends Model
         'item_id',
         'body',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

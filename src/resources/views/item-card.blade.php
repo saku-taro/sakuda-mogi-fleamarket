@@ -1,7 +1,6 @@
-<a class="item-card" href="">
-    {{-- {{ route('item.show', ['item' => $item->id]) }} --}}
+<a class="item-card" href="{{ route('item.show', ['item_id' => $item->id]) }}">
     <div class="item-card__inner">
-        @if($item->item_images && $item->item_images->isNotEmpty())
+        @if($item->item_images?->isNotEmpty())
             <img class="item-card__image" src="{{ asset('storage/' . $item->item_images->first()->image_path) }}" alt="{{ $item->name }}">
         @else
             <div class="item-card__no-image">

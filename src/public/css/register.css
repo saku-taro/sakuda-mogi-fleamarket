@@ -62,6 +62,7 @@
     font-size: 20px;
     background-color: #ff5555;
     color: #ffffff;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 }

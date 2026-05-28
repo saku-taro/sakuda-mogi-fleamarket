@@ -102,25 +102,27 @@
 </div>
 @endsection
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('image-input');
-    if (!input) return;
+@section('scripts')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('image-input');
+        if (!input) return;
 
-    input.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const preview = document.getElementById('preview');
-        const noImage = document.getElementById('no-image');
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('preview');
+            const noImage = document.getElementById('no-image');
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-                if (noImage) noImage.style.display = 'none';
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (noImage) noImage.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
-        }
+        });
     });
-});
-</script>
+    </script>
+@endsection

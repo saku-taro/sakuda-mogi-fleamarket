@@ -32,18 +32,19 @@
 
                 <nav class="header__nav-group">
                     <ul class="header-nav">
-                        @if (Auth::check())
+                        @auth
                             <li class="header-nav__item">
                                 <form class="header-nav__logout-form" action="{{ route('logout') }}" method="post">
                                 @csrf
-                                    <button class="header-nav__logout-button" type="submit">ログアウト</button>
+                                <button class="header-nav__logout-button" type="submit">ログアウト</button>
                                 </form>
                             </li>
-                        @else
+                        @endauth
+                        @guest
                             <li class="header-nav__item">
                                 <a class="header-nav__link" href="{{ route('login') }}">ログイン</a>
                             </li>
-                        @endif
+                        @endguest
                         <li class="header-nav__item">
                             <a class="header-nav__link" href="{{ route('profile.show') }}">マイページ</a>
                         </li>
@@ -59,6 +60,8 @@
     <main>
         @yield('content')
     </main>
+
+    @yield('scripts')
 </body>
 </html>
 

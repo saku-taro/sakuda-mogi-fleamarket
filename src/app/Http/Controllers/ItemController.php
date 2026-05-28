@@ -60,4 +60,16 @@ class ItemController extends Controller
 
         return redirect()->route('item.index');
     }
+
+    public function show($item_id)
+    {
+        $item = Item::with([
+            'item_images',
+            'categories',
+            'comments.user',
+            'favoritedBy'
+        ])->findOrFail($item_id);
+
+        return view('item.show', compact('item'));
+    }
 }

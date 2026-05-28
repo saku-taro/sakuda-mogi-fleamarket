@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,7 +20,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ItemController::class, 'index'])->middleware('check.profile')->name('item.index');
+Route::middleware(['check.profile'])->group(function () {
+    Route::get('/', [ItemController::class, 'index'])->name('item.index');
+    Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('profile.show');
@@ -27,5 +33,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['check.profile'])->group(function () {
         Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
         Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
+        Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comment.store');
+
+        Route::post('/item/{item_id}/like', [FavoriteController::class, 'toggle'])->name('like.toggle');
+
+        Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+        Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+
+        Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
+        Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.updateAddress');
     });
 });

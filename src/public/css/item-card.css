@@ -1,4 +1,3 @@
-/* 💡 商品カード全体の基本スタイル */
 .item-card {
     display: block;
     text-decoration: none;
@@ -35,6 +34,7 @@
     color: #666666;
     font-size: 16px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 /* 商品登録できるようになったら文字数を確認して確認 */
@@ -49,19 +49,16 @@
     overflow: hidden;
 }
 
-/* 購入の設定を確認してから確認 */
 .item-card__badge--sold {
     position: absolute;
-    top: 10px; /* 上からの位置（お好みで調整） */
-    left: 10px; /* 左からの位置（お好みで調整） */
-    z-index: 10; /* 画像やNO IMAGEの箱よりも確実に前に出す */
-
-    background-color: #ff3333; /* フリマアプリらしい鮮やかな赤 */
-    color: #ffffff; /* 白文字 */
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background-color: #ff3333;
+    color: #ffffff;
     font-size: 13px;
     font-weight: bold;
-    padding: 4px 10px; /* バッジの内側の余白（上下 左右） */
-    border-radius: 4px; /* ほんの少し角を丸くして今風に */
-
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 軽めの影をつけて立体感を出す */
+    padding: 4px 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

@@ -25,6 +25,7 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'ゲーム'],
             ['name' => 'スポーツ'],
             ['name' => 'キッチン'],
+            ['name' => '食品'],
             ['name' => 'ハンドメイド'],
             ['name' => 'アクセサリー'],
             ['name' => 'おもちゃ'],

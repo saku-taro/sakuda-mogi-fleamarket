@@ -28,17 +28,17 @@
 </div>
 
 <div class="item-tabs">
-    <a class="tab-button {{ $currentTab === 'sell' ? 'active' : '' }}" href="{{ route('profile.show', ['tab' => 'sell']) }}">
+    <a class="tab-button {{ $currentPage === 'sell' ? 'active' : '' }}" href="{{ route('profile.show', ['page' => 'sell']) }}">
         出品した商品
     </a>
-    <a class="tab-button {{ $currentTab === 'buy' ? 'active' : '' }}" href="{{ route('profile.show', ['tab' => 'buy']) }}">
+    <a class="tab-button {{ $currentPage === 'buy' ? 'active' : '' }}" href="{{ route('profile.show', ['page' => 'buy']) }}">
         購入した商品
     </a>
 </div>
 
 <div class="item-container">
     <div class="item-grid">
-        @if($currentTab === 'sell')
+        @if($currentPage === 'sell')
             @foreach($sellItems as $item)
                 @include('item-card', ['item' => $item])
             @endforeach
