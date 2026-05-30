@@ -5,23 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 
 class FavoriteController extends Controller
 {
-    public function toggle($item_id)
+    public function store($item_id)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+        request()->user()->favorites()->attach($item_id);
+        return back();
+    }
 
-        $item = Item::findOrFail($item_id);
-
-        if ($user->favorites()->where('item_id', $item->id)->exists()) {
-            $user->favorites()->detach($item->id);
-        } else {
-            $user->favorites()->attach($item->id);
-        }
-
+    public function destroy($item_id)
+    {
+        request()->user()->favorites()->detach($item_id);
         return back();
     }
 }

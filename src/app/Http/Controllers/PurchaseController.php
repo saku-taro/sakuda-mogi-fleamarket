@@ -60,13 +60,13 @@ class PurchaseController extends Controller
         }
     }
 
-    public function address($item_id)
+    public function edit($item_id)
     {
         $item = Item::findOrFail($item_id);
         return view('item.purchase_address', compact('item'));
     }
 
-    public function updateAddress(AddressRequest $request, $item_id)
+    public function update(AddressRequest $request, $item_id)
     {
 
         session([

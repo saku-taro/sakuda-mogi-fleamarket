@@ -38,6 +38,8 @@ class ExhibitionRequest extends FormRequest
     {
         return [
             'name.required'         => '商品名を入力してください',
+            'name.max'         => '商品名は255文字以内で入力してください',
+            'brand_name.max'         => 'ブランド名は255文字以内で入力してください',
             'description.required'  => '商品の説明を入力してください',
             'description.max'  => '商品の説明は255文字以内で入力してください',
             'item_image.required'        => '商品画像は必須です',

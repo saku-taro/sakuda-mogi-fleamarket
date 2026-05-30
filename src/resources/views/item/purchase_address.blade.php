@@ -11,7 +11,7 @@
         <h2 class="form__title">住所の変更</h2>
     </div>
 
-    <form class="edit__form" action="{{ route('purchase.updateAddress', ['item_id' => $item->id]) }}" method="post" novalidate>
+    <form class="edit__form" action="{{ route('purchase.address.update', ['item_id' => $item->id]) }}" method="post" novalidate>
         @csrf
 
         <input type="hidden" name="payment_method" value="{{ session('payment_method', old('payment_method')) }}">

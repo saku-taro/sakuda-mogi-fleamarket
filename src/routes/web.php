@@ -36,12 +36,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comment.store');
 
-        Route::post('/item/{item_id}/like', [FavoriteController::class, 'toggle'])->name('like.toggle');
+        Route::post('/item/{item_id}/like', [FavoriteController::class, 'store'])->name('like.store');
+        Route::delete('/item/{item_id}/like', [FavoriteController::class, 'destroy'])->name('like.destroy');
 
         Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
         Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-        Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
-        Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.updateAddress');
+        Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
+        Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update'])->name('purchase.address.update');
     });
 });

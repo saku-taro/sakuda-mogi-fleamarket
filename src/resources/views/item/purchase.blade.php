@@ -47,7 +47,7 @@
                 <div class="shipping-info__group">
                     <div class="shipping-info__header">
                         <h3 class="shipping-info__label">配送先</h3>
-                        <a class="shipping-info__link" href="{{ route('purchase.address', ['item_id' => $item->id]) }}">変更する</a>
+                        <a class="shipping-info__link" href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">変更する</a>
                     </div>
                     <p class="shipping-info__postcode">〒{{ session('shipping_postcode', $user->postcode) }}</p>
                     <p class="shipping-info__address">

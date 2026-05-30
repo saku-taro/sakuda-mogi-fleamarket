@@ -40,12 +40,22 @@
             <div class="item-detail__like">
                 @auth
                     @php $isLiked = Auth::user()->favorites?->contains($item->id); @endphp
-                    <form action="{{ route('like.toggle', ['item_id' => $item->id]) }}" method="POST">
-                        @csrf
-                        <button class="item-detail__like-button" type="submit">
-                            <span class="item-detail__icon {{ $isLiked ? 'item-detail__like-icon--on' : 'item-detail__like-icon--off' }}"></span>
-                        </button>
-                    </form>
+                    @if($isLiked)
+                        <form action="{{ route('like.destroy', ['item_id' => $item->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="item-detail__like-button" type="submit">
+                                <span class="item-detail__icon item-detail__like-icon--on"></span>
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('like.store', ['item_id' => $item->id]) }}" method="POST">
+                            @csrf
+                            <button class="item-detail__like-button" type="submit">
+                                <span class="item-detail__icon item-detail__like-icon--off"></span>
+                            </button>
+                        </form>
+                    @endif
                 @endauth
                 @guest
                     <a href="{{ route('login') }}">

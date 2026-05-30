@@ -42,6 +42,8 @@ class ProfileRequest extends FormRequest
             'postcode.required' => '郵便番号を入力してください',
             'postcode.regex'     => '郵便番号はハイフンを含めた8文字で入力してください',
             'address.required' => '住所を入力してください',
+            'address.max' => '住所は255文字以内で入力してください',
+            'building.max' => '建物名は255文字以内で入力してください',
         ];
     }
 }
