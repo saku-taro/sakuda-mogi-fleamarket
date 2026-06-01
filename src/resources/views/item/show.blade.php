@@ -62,12 +62,12 @@
                         <span class="item-detail__icon item-detail__like-icon--off"></span>
                     </a>
                 @endguest
-                <span class="item-detail__count">{{ $item->favoritedBy?->count() ?? 0 }}</span>
+                <span class="item-detail__like-count">{{ $item->favoritedBy?->count() ?? 0 }}</span>
             </div>
 
             <div class="item-detail__comment">
                 <span class="item-detail__icon item-detail__comment-icon-img"></span>
-                <span class="item-detail__count">{{ $item->comments?->count() ?? 0 }}</span>
+                <span class="item-detail__comment-count">{{ $item->comments?->count() ?? 0 }}</span>
             </div>
         </div>
 

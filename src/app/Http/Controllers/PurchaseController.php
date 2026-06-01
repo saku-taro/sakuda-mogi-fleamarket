@@ -31,16 +31,17 @@ class PurchaseController extends Controller
     public function store(PurchaseRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
+        $user = Auth::user();
 
         DB::beginTransaction();
         try {
             $order = Order::create([
-                'user_id' => Auth::id(),
+                'user_id' => $user->id,
                 'total_price' => $request->total_price,
                 'payment_method' => $request->payment_method,
-                'shipping_postcode' => $request->shipping_postcode,
-                'shipping_address' => $request->shipping_address,
-                'shipping_building' => $request->shipping_building,
+                'shipping_postcode' => session('shipping_postcode', $user->postcode),
+                'shipping_address' => session('shipping_address', $user->address),
+                'shipping_building' => session('shipping_building', $user->building),
             ]);
 
             OrderItem::create([

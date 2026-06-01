@@ -21,6 +21,9 @@ use Illuminate\Http\RedirectResponse;
 
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Auth\Events\Registered;
+
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -61,6 +64,19 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 return redirect('/login');
             }
+        });
+
+        $this->app->singleton(CreatesNewUsers::class, function ($app) {
+            return new class extends \App\Actions\Fortify\CreateNewUser {
+                public function create(array $input): \App\Models\User
+                {
+                    $user = parent::create($input);
+
+                    event(new Registered($user));
+
+                    return $user;
+                }
+            };
         });
     }
 }

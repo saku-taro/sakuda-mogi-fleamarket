@@ -23,6 +23,13 @@ class CheckProfileCompletionMiddleware
 
         $user = Auth::user();
 
+        if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail()) {
+            if (!$request->routeIs('verification.notice', 'verification.verify', 'verification.send', 'logout')) {
+                return redirect()->route('verification.notice');
+            }
+            return $next($request);
+        }
+
         if (!$user->is_profile_completed) {
 
             if (!$request->routeIs('profile.edit', 'profile.update', 'logout')) {
