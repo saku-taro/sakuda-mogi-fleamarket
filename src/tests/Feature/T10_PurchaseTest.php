@@ -20,6 +20,7 @@ class T10_PurchaseTest extends TestCase
 
     public function test_購入するボタンを押下すると購入が完了する()
     {
+
         $user = User::factory()->create([
             'postcode' => '123-4567',
             'address' => 'テスト区',
@@ -45,7 +46,12 @@ class T10_PurchaseTest extends TestCase
             'shipping_building' => $user->building,
         ]);
 
+        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
+
+        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
+
         $response->assertStatus(302);
+
         $response->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('items', [
@@ -94,7 +100,12 @@ class T10_PurchaseTest extends TestCase
             'shipping_building' => $user->building,
         ]);
 
+        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
+
+        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
+
         $response->assertStatus(302);
+
         $response->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('items', [
@@ -136,7 +147,13 @@ class T10_PurchaseTest extends TestCase
             'shipping_building' => $user->building,
         ]);
 
+        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
+
+        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
+
+
         $response->assertStatus(302);
+
         $response->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('items', [

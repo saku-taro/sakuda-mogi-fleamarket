@@ -90,16 +90,22 @@ class T01_RegisterTest extends TestCase
     {
         $this->get('/register');
 
-        $this->post(route('register'), [
-            'name'                  => 'テスト太郎',
-            'email'                 => 'test@example.com',
-            'password'              => '12345678',
+        $response = $this->post(route('register'), [
+            'name' => 'テスト太郎',
+            'email' => 'test@example.com',
+            'password' => '12345678',
             'password_confirmation' => '12345678',
         ]);
 
+        $response->assertStatus(302);
+
         $this->assertDatabaseHas('users', [
-            'name'  => 'テスト太郎',
+            'name' => 'テスト太郎',
             'email' => 'test@example.com',
         ]);
+
+        $response->assertRedirect(route('profile.edit'));
+        $response->assertStatus(302);
+        $this->assertAuthenticated();
     }
 }

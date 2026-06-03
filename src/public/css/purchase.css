@@ -109,10 +109,13 @@
 }
 
 .shipping-info__link {
+    background: none;
+    border: none;
     margin: 20px 20px 30px 30px;
+    padding: 0;
     font-size: 18px;
     color: #34a3f8;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 .shipping-info__postcode,

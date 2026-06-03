@@ -6,10 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
-
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,21 +20,13 @@ use Illuminate\Http\Request;
 */
 
 // --- メール認証関連ルート ---
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
+Route::get('/email/verify', [VerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
 // 認証リンククリック時の処理
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 // メール再送信処理
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::post('/stripe/webhook', [PurchaseController::class, 'webhook']);
 
 Route::middleware(['check.profile'])->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('item.index');
@@ -61,8 +50,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
         Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+        Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
 
-        Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
-        Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update'])->name('purchase.address.update');
+        Route::post('/purchase/address/{item_id}/edit', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
+        Route::post('/purchase/address/{item_id}/update', [PurchaseController::class, 'update'])->name('purchase.address.update');
     });
 });

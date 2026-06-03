@@ -33,9 +33,9 @@
                 <div class="form__group">
                     <h3 class="form__label">支払い方法</h3>
                     <select class="form__input--select" name="payment_method" id="payment-select">
-                        <option value="" selected disabled hidden>選択してください</option>
-                        <option value="コンビニ払い"{{ old('payment_method') === 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
-                        <option value="カード支払い"{{ old('payment_method') === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
+                        <option value="" disabled {{ !session()->has('payment_method') ? 'selected' : '' }}>選択してください</option>
+                        <option value="コンビニ払い"{{ session('payment_method') === 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
+                        <option value="カード支払い"{{ session('payment_method') === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
                     </select>
                     <div class="form__error">
                         @error('payment_method')
@@ -47,7 +47,9 @@
                 <div class="shipping-info__group">
                     <div class="shipping-info__header">
                         <h3 class="shipping-info__label">配送先</h3>
-                        <a class="shipping-info__link" href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">変更する</a>
+                        <button class="shipping-info__link" type="submit" formaction="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">
+                            変更する
+                        </button>
                     </div>
                     <p class="shipping-info__postcode">〒{{ session('shipping_postcode', $user->postcode) }}</p>
                     <p class="shipping-info__address">
@@ -79,7 +81,7 @@
                         </div>
                         <div class="purchase-summary__item">
                             <span class="purchase-summary__label">支払い方法</span>
-                            <span class="purchase-summary__value" id="display-payment">{{ old('payment_method', '未選択') }}</span>
+                            <span class="purchase-summary__value" id="display-payment">{{ session('payment_method', '未選択') }}</span>
                         </div>
                     </div>
                     <button class="purchase-button" type="submit">購入する</button>
@@ -89,14 +91,21 @@
 @endsection
 
 @section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const selectElement = document.getElementById('payment-select');
-            const displayElement = document.getElementById('display-payment');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const selectElement = document.getElementById('payment-select');
+        const displayElement = document.getElementById('display-payment');
 
-            selectElement.addEventListener('change', (event) => {
-                displayElement.textContent = event.target.value;
-            });
+        // ページ読み込み時に、selectの選択値を確実に反映させる
+        // セッションから値が渡されていれば、それが表示されます
+        if (selectElement.options[selectElement.selectedIndex].value !== "") {
+            displayElement.textContent = selectElement.options[selectElement.selectedIndex].text;
+        }
+
+        selectElement.addEventListener('change', (event) => {
+            // 選択が変更されたら、選択したoptionのテキストを表示する
+            displayElement.textContent = event.target.options[event.target.selectedIndex].text;
         });
-    </script>
+    });
+</script>
 @endsection

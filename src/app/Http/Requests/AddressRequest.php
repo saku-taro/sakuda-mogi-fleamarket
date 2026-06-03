@@ -24,6 +24,7 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
+            'payment_method'        => ['nullable', 'string'],
             'shipping_postcode'      => ['required', 'string', 'regex:/^\d{3}-\d{4}$/'],
             'shipping_address'       => ['required', 'string', 'max:255'],
             'shipping_building'      => ['nullable', 'string', 'max:255'],

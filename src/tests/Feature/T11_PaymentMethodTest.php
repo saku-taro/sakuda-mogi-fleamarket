@@ -29,13 +29,17 @@ class T11_PaymentMethodTest extends TestCase
         $response = $this->get(route('purchase.show', ['item_id' => $item->id]));
         $response->assertStatus(200);
 
-        $response = $this->post(route('purchase.store', ['item_id' => $item->id]), [
-            'total_price' => $item->price,
+        $response = $this->post(route('purchase.address.edit', ['item_id' => $item->id]), [
             'payment_method' => 'コンビニ払い',
-            'shipping_postcode' => '',
         ]);
+        $response->assertStatus(200);
 
+        $response = $this->post(route('purchase.address.update', ['item_id' => $item->id]), [
+            'shipping_postcode' => $user->postcode,
+            'shipping_address' => $user->address,
+        ]);
         $response->assertStatus(302);
+
         $response = $this->get(route('purchase.show', ['item_id' => $item->id]));
         $response->assertSee('<span class="purchase-summary__value" id="display-payment">コンビニ払い</span>', false);
     }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -24,11 +26,13 @@ class CreateNewUser implements CreatesNewUsers
 
         Validator::make($input, $request->rules(), $request->messages())->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'is_profile_completed' => 0,
         ]);
+
+        return $user;
     }
 }

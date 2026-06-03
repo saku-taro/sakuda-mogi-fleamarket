@@ -70,7 +70,7 @@ class ItemsTableSeeder extends Seeder
         $item5->categories()->attach([2]);
 
         $item6 = Item::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'マイク',
             'brand_name' => 'なし',
             'description' => '高音質なマイク',
@@ -81,7 +81,7 @@ class ItemsTableSeeder extends Seeder
         $item6->categories()->attach([2]);
 
         $item7 = Item::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'ショルダーバッグ',
             'brand_name' => '',
             'description' => 'おしゃれなショルダーバッグ',
@@ -92,7 +92,7 @@ class ItemsTableSeeder extends Seeder
         $item7->categories()->attach([1, 4]);
 
         $item8 = Item::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'タンブラー',
             'brand_name' => 'なし',
             'description' => '使いやすいタンブラー',
@@ -103,7 +103,7 @@ class ItemsTableSeeder extends Seeder
         $item8->categories()->attach([10]);
 
         $item9 = Item::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'コーヒーミル',
             'brand_name' => 'Starbacks',
             'description' => '手動のコーヒーミル',
@@ -114,7 +114,7 @@ class ItemsTableSeeder extends Seeder
         $item9->categories()->attach([10]);
 
         $item10 = Item::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'メイクセット',
             'brand_name' => '',
             'description' => '便利なメイクアップセット',

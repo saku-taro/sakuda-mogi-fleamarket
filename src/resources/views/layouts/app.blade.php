@@ -21,7 +21,7 @@
                 </a>
             </h1>
 
-            @if (!Request::routeIs('login') && !Request::routeIs('register'))
+            @if (!Request::routeIs('login', 'register', 'verification.notice'))
                 <div class="header__search">
                     <form class="search-form" action="{{ route('item.index') }}" method="GET">
                         <input type="hidden" name="tab" value="{{ $currentTab ?? request('tab', 'all') }}">
