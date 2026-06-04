@@ -67,7 +67,8 @@ php artisan db:seed
 ・Laravel 8.83.8  
 ・MySQL 11.8.3  
 ・nginx 1.21.1  
-・mailhog
+・mailhog  
+・Stripe
 
 ## URL
 
