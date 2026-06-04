@@ -15,7 +15,7 @@ class VerificationController extends Controller
     public function verify(EmailVerificationRequest $request)
     {
         $request->fulfill();
-        return redirect('/');
+        return redirect()->route('profile.edit');
     }
     public function resend(Request $request)
     {

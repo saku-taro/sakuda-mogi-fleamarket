@@ -43,10 +43,6 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
-```
-
-```
-
 ---
 
 ```

@@ -19,7 +19,9 @@ class T01_RegisterTest extends TestCase
 
     public function test_名前が未入力の場合のバリデーションメッセージ()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
+
         $response = $this->post(route('register'), [
             'name'                  => '',
             'email'                 => 'test@example.com',
@@ -32,7 +34,8 @@ class T01_RegisterTest extends TestCase
 
     public function test_メールアドレスが未入力の場合のバリデーションメッセージ()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
 
         $response = $this->post(route('register'), [
             'name'                  => 'テスト太郎',
@@ -46,7 +49,8 @@ class T01_RegisterTest extends TestCase
 
     public function test_パスワードが未入力の場合のバリデーションメッセージ()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
 
         $response = $this->post(route('register'), [
             'name'                  => 'テスト太郎',
@@ -60,7 +64,8 @@ class T01_RegisterTest extends TestCase
 
     public function test_パスワードが7文字以下の場合のバリデーションメッセージ()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
 
         $response = $this->post(route('register'), [
             'name'                  => 'テスト太郎',
@@ -74,7 +79,8 @@ class T01_RegisterTest extends TestCase
 
     public function test_パスワードが確認用パスワードと一致しない場合のバリデーションメッセージ()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
 
         $response = $this->post(route('register'), [
             'name'                  => 'テスト太郎',
@@ -88,7 +94,8 @@ class T01_RegisterTest extends TestCase
 
     public function test_全ての項目が入力されている場合、会員情報が登録され、プロフィール設定画面に遷移される()
     {
-        $this->get('/register');
+        $response = $this->get('/register');
+        $response->assertStatus(200);
 
         $response = $this->post(route('register'), [
             'name' => 'テスト太郎',
