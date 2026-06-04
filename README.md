@@ -42,6 +42,10 @@ DB_PASSWORD=laravel_pass
 ```
 
 ```
+
+```
+
+```
 php artisan key:generate
 ```
 
@@ -54,7 +58,7 @@ php artisan migrate
 ```
 
 ```
-php artisan db:seed
+- [ ]php artisan db:seed
 ```
 
 ## 使用技術(実行環境)
@@ -62,7 +66,8 @@ php artisan db:seed
 ・PHP 8.5.3  
 ・Laravel 8.83.8  
 ・MySQL 11.8.3  
-・nginx 1.21.1
+・nginx 1.21.1  
+・mailhog
 
 ## URL
 
