@@ -30,6 +30,8 @@ composer install
 cp .env.example .env
 ```
 
+---
+
 ・「.envファイル」の環境変数は次の通りの通り
 
 ```
@@ -45,6 +47,8 @@ DB_PASSWORD=laravel_pass
 
 ```
 
+---
+
 ```
 php artisan key:generate
 ```
@@ -58,7 +62,7 @@ php artisan migrate
 ```
 
 ```
-- [ ]php artisan db:seed
+php artisan db:seed
 ```
 
 ## 使用技術(実行環境)
