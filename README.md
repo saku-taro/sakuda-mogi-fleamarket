@@ -144,8 +144,8 @@ php artisan migrate --env=testing
 ・nginx 1.21.1  
 ・mailhog  
 ・Stripe  
-※「.env」にStripeのAPIキーを追加してください。
-STRIPE_KEY=公開可能キーを追加
+※「.env」にStripeのAPIキーを追加してください。  
+STRIPE_KEY=公開可能キーを追加  
 STRIPE_SECRET=シークレットキーを追加
 
 ## URL
