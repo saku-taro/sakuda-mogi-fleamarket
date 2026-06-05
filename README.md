@@ -143,7 +143,10 @@ php artisan migrate --env=testing
 ・MySQL 11.8.3  
 ・nginx 1.21.1  
 ・mailhog  
-・Stripe
+・Stripe  
+※「.env」にStripeのAPIキーを追加してください。
+STRIPE_KEY=公開可能キーを追加
+STRIPE_SECRET=シークレットキーを追加
 
 ## URL
 
