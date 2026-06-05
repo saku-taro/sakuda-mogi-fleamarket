@@ -18,6 +18,8 @@ docker-compose up -d --build
 
 ### ・Laravel環境構築
 
+・プロジェクトのルートディレクトリ（docker-compose.ymlがある場所）へ移動し、以下のコマンドを実行してください。
+
 ```
 docker-compose exec php bash
 ```
@@ -32,7 +34,7 @@ cp .env.example .env
 
 ---
 
-・「.envファイル」の環境変数は次の通りの通り
+・「.envファイル」の環境変数を次の通り変更する
 
 ```
 DB_CONNECTION=mysql
@@ -59,6 +61,79 @@ php artisan migrate
 
 ```
 php artisan db:seed
+```
+
+### ・テスト環境構築
+
+・プロジェクトのルートディレクトリ（docker-compose.ymlがある場所）へ移動し、以下のコマンドを実行してください。
+
+```
+docker-compose exec mysql bash
+```
+
+```
+mysql -u root -p
+```
+
+・パスワードを要求されるため、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているパスワードを入力する。
+
+```
+CREATE DATABASE demo_test;
+```
+
+---
+
+・次のコマンドで「demo_test」作成されているか確認
+
+```
+SHOW DATABASES;
+```
+
+---
+
+・プロジェクトのルートディレクトリへ戻る
+
+```
+docker-compose exec php bash
+```
+
+```
+cp .env .env.testing
+```
+
+---
+
+・「.env.testing」の環境変数を次の通り変更する
+
+```
+APP_NAME=Laravel
+APP_ENV=test
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+```
+
+```
+DB_CONNECTION=mysql_test
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+---
+
+```
+php artisan key:generate --env=testing
+```
+
+```
+php artisan config:clear
+```
+
+```
+php artisan migrate --env=testing
 ```
 
 ## 使用技術(実行環境)
