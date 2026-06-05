@@ -34,7 +34,7 @@ Route::middleware(['check.profile'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('verified')->name('profile.edit');
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::middleware(['check.profile'])->group(function () {
