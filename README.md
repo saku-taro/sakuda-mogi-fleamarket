@@ -75,7 +75,7 @@ docker-compose exec mysql bash
 mysql -u root -p
 ```
 
-・パスワードを要求されるため、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているパスワードを入力する。
+※パスワードを要求されるため、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているパスワードを入力する。
 
 ```
 CREATE DATABASE demo_test;
@@ -83,7 +83,7 @@ CREATE DATABASE demo_test;
 
 ---
 
-・次のコマンドで「demo_test」作成されているか確認
+※次のコマンドで「demo_test」作成されているか確認
 
 ```
 SHOW DATABASES;
@@ -91,7 +91,7 @@ SHOW DATABASES;
 
 ---
 
-・プロジェクトのルートディレクトリへ戻る
+※プロジェクトのルートディレクトリへ戻る
 
 ```
 docker-compose exec php bash
@@ -103,7 +103,7 @@ cp .env .env.testing
 
 ---
 
-・「.env.testing」の環境変数を次の通り変更する
+※「.env.testing」の環境変数を次の通り変更する
 
 ```
 APP_NAME=Laravel
