@@ -45,6 +45,13 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
+※「.env」にStripeのAPIキーを追加してください。
+
+```
+STRIPE_KEY=公開可能キーを追加
+STRIPE_SECRET=シークレットキーを追加
+```
+
 ---
 
 ```
@@ -62,6 +69,31 @@ php artisan migrate
 ```
 php artisan db:seed
 ```
+
+#### ・ダミーユーザーの情報
+
+---
+
+ユーザー名：テスト太郎
+
+メールアドレス
+
+```
+test@example.com
+```
+
+パスワード
+
+```
+password
+```
+
+郵便番号：123-4567
+住　　所：東京都テスト区テスト町1-2-3
+建 物 名：テストビル 5F
+出品商品：5点(商品のid:1～5)
+
+---
 
 ### ・テスト環境構築
 
@@ -81,15 +113,11 @@ mysql -u root -p
 CREATE DATABASE demo_test;
 ```
 
----
-
-※次のコマンドで「demo_test」作成されているか確認
+※次のコマンドで「demo_test」が作成されているか確認
 
 ```
 SHOW DATABASES;
 ```
-
----
 
 ※プロジェクトのルートディレクトリへ戻る
 
@@ -129,11 +157,11 @@ php artisan key:generate --env=testing
 ```
 
 ```
-php artisan config:clear
+php artisan migrate --env=testing
 ```
 
 ```
-php artisan migrate --env=testing
+php artisan test
 ```
 
 ## 使用技術(実行環境)
@@ -143,10 +171,7 @@ php artisan migrate --env=testing
 ・MySQL 11.8.3  
 ・nginx 1.21.1  
 ・mailhog  
-・Stripe  
-※「.env」にStripeのAPIキーを追加してください。  
-STRIPE_KEY=公開可能キーを追加  
-STRIPE_SECRET=シークレットキーを追加
+・Stripe
 
 ## URL
 

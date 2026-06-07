@@ -19,22 +19,20 @@ use App\Http\Controllers\VerificationController;
 |
 */
 
-// --- メール認証関連ルート ---
+// メール認証関連ルート
 Route::get('/email/verify', [VerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
-// 認証リンククリック時の処理
+// メール内で認証リンクをクリックした時の処理
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
-// メール再送信処理
+// メール再送信の処理
 Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::post('/stripe/webhook', [PurchaseController::class, 'webhook']);
 
 Route::middleware(['check.profile'])->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('item.index');
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('verified')->name('profile.edit');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::middleware(['check.profile'])->group(function () {
@@ -51,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
         Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
         Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
+        Route::get('/purchase/{item_id}/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
+
 
         Route::post('/purchase/address/{item_id}/edit', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
         Route::post('/purchase/address/{item_id}/update', [PurchaseController::class, 'update'])->name('purchase.address.update');

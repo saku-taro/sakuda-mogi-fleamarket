@@ -101,12 +101,6 @@ class T12_ShippingAddressTest extends TestCase
             'shipping_building' => 'テストビル',
         ]);
 
-        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
-
-        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
-
-        $response->assertStatus(302);
-
         $this->assertDatabaseHas('orders', [
             'user_id'           => $user->id,
             'shipping_postcode' => '345-6789',

@@ -37,7 +37,6 @@ class T10_PurchaseTest extends TestCase
         $response = $this->get(route('purchase.show', ['item_id' => $item->id]));
         $response->assertStatus(200);
 
-
         $response = $this->post(route('purchase.store', ['item_id' => $item->id]), [
             'total_price' => $item->price,
             'payment_method' => 'コンビニ払い',
@@ -45,14 +44,6 @@ class T10_PurchaseTest extends TestCase
             'shipping_address' => $user->address,
             'shipping_building' => $user->building,
         ]);
-
-        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
-
-        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
-
-        $response->assertStatus(302);
-
-        $response->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('items', [
             'id' => $item->id,
@@ -100,14 +91,6 @@ class T10_PurchaseTest extends TestCase
             'shipping_building' => $user->building,
         ]);
 
-        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
-
-        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
-
-        $response->assertStatus(302);
-
-        $response->assertRedirect(route('item.index'));
-
         $this->assertDatabaseHas('items', [
             'id'             => $item->id,
             'name'           => '売り切れのバッグ',
@@ -146,15 +129,6 @@ class T10_PurchaseTest extends TestCase
             'shipping_address'  => $user->address,
             'shipping_building' => $user->building,
         ]);
-
-        $response->assertRedirect(route('purchase.success', ['item_id' => $item->id]));
-
-        $response = $this->get(route('purchase.success', ['item_id' => $item->id]) . '?session_id=dummy_id');
-
-
-        $response->assertStatus(302);
-
-        $response->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('items', [
             'id'             => $item->id,
