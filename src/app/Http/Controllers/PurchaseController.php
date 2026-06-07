@@ -129,7 +129,7 @@ class PurchaseController extends Controller
     public function edit(Request $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
-        if ($request->filled('payment_method')) {
+        if ($request->has('payment_method')) {
             session(['payment_method' => $request->payment_method]);
         }
         session(['is_editing_address' => true]);

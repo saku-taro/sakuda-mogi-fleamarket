@@ -47,9 +47,7 @@
                 <div class="shipping-info__group">
                     <div class="shipping-info__header">
                         <h3 class="shipping-info__label">配送先</h3>
-                        <button class="shipping-info__link" type="submit" formaction="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">
-                            変更する
-                        </button>
+                        <a class="shipping-info__link" href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}" id="edit-address-link">変更する</a>
                     </div>
                     <p class="shipping-info__postcode">〒{{ session('shipping_postcode', $user->postcode) }}</p>
                     <p class="shipping-info__address">
@@ -92,19 +90,33 @@
 
 @section('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
         const selectElement = document.getElementById('payment-select');
         const displayElement = document.getElementById('display-payment');
+        const editLink = document.getElementById('edit-address-link');
 
-        // ページ読み込み時に、selectの選択値を確実に反映させる
-        // セッションから値が渡されていれば、それが表示されます
-        if (selectElement.options[selectElement.selectedIndex].value !== "") {
+        // 1. 支払い方法の表示切替処理
+        if (selectElement.value !== "") {
             displayElement.textContent = selectElement.options[selectElement.selectedIndex].text;
         }
 
         selectElement.addEventListener('change', (event) => {
-            // 選択が変更されたら、選択したoptionのテキストを表示する
             displayElement.textContent = event.target.options[event.target.selectedIndex].text;
+        });
+
+        // 2. 「変更する」リンクへの支払い方法引き継ぎ処理
+        editLink.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const baseUrl = editLink.getAttribute('href');
+            const selectedMethod = selectElement.value;
+
+            const url = new URL(baseUrl, window.location.origin);
+            if (selectedMethod) {
+                url.searchParams.append('payment_method', selectedMethod);
+            }
+
+            window.location.href = url.toString();
         });
     });
 </script>

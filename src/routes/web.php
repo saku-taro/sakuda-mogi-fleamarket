@@ -52,7 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/purchase/{item_id}/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
 
 
-        Route::post('/purchase/address/{item_id}/edit', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
-        Route::post('/purchase/address/{item_id}/update', [PurchaseController::class, 'update'])->name('purchase.address.update');
+        Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])->name('purchase.address.edit');
+        Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update'])->name('purchase.address.update');
     });
 });
