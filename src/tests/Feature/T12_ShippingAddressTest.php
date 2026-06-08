@@ -36,7 +36,7 @@ class T12_ShippingAddressTest extends TestCase
         $response->assertSee('テスト区');
         $response->assertSee('テストビル');
 
-        $response = $this->post(route('purchase.address.edit', ['item_id' => $item->id]));
+        $response = $this->get(route('purchase.address.edit', ['item_id' => $item->id]));
         $response->assertStatus(200);
 
         $response = $this->post(route('purchase.address.update', ['item_id' => $item->id]), [
@@ -74,7 +74,7 @@ class T12_ShippingAddressTest extends TestCase
         $response->assertSee('テスト区');
         $response->assertSee('テストビル');
 
-        $response = $this->post(route('purchase.address.edit', ['item_id' => $item->id]));
+        $response = $this->get(route('purchase.address.edit', ['item_id' => $item->id]));
         $response->assertStatus(200);
 
         $response = $this->post(route('purchase.address.update', ['item_id' => $item->id]), [
