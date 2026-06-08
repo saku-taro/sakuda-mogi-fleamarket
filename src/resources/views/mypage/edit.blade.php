@@ -15,17 +15,8 @@
         @csrf
         @method('PATCH')
 
-        {{-- 「選択した瞬間に円形のプレビューを表示させたい」場合は、JavaScriptが必要 --}}
         <div class="form__group">
             <div class="form__item-flex">
-                {{-- <div class="icon-preview">
-                    @if(Auth::user()->profile_image)
-                        <img id="preview" class="circle-image" src="{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}">
-                    @else
-                        <img id="preview" class="circle-image" style="display: none;">
-                        <div class="no-image-circle"></div>
-                    @endif
-                </div> --}}
                 <div class="icon-preview">
                     <img id="preview" class="circle-image"
                         src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : '' }}"

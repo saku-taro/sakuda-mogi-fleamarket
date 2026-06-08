@@ -6,7 +6,6 @@
 @endsection
 
 @section('content')
-
 <div class="profile-header">
     <div class="profile-header__user">
         <div class="profile-header__icon">

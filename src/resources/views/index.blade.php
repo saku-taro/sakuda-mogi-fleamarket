@@ -6,6 +6,17 @@
 @endsection
 
 @section('content')
+@if (session('success'))
+    <div class="alert_purchase--success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert_purchase--error">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="item-tabs">
     <a class="tab-button {{ $currentTab === 'all' ? 'active' : '' }}" href="{{ route('item.index', ['tab' => 'all', 'keyword' => request('keyword')]) }}">

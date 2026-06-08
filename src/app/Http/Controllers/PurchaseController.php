@@ -8,7 +8,6 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -18,9 +17,9 @@ use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
-    public function show($item_id)
+    public function show(Request $request, $item_id)
     {
-        $user = Auth::user();
+        $user = $request->user();
         $item = Item::findOrFail($item_id);
 
         if ($item->trading_status === 1) {
@@ -40,14 +39,13 @@ class PurchaseController extends Controller
 
         session(['purchase_item_id' => $item_id]);
 
-
         return view('item.purchase', compact('item', 'user'));
     }
 
     public function store(PurchaseRequest $request, $item_id)
     {
         session(['payment_method' => $request->payment_method]);
-        $user = Auth::user();
+        $user = $request->user();
 
         $order = DB::transaction(function () use ($user, $item_id) {
             $item = Item::where('id', $item_id)->lockForUpdate()->firstOrFail();
@@ -76,7 +74,7 @@ class PurchaseController extends Controller
         });
 
         if (!$order) {
-            return redirect()->back();
+            return redirect()->route('items.index')->with('error', 'この商品はすでに売り切れています。');
         }
 
         $item = Item::findOrFail($item_id);
@@ -108,9 +106,10 @@ class PurchaseController extends Controller
             'payment_method',
             'shipping_postcode',
             'shipping_address',
-            'shipping_building'
+            'shipping_building',
+            'latest_order_id'
         ]);
-        return redirect()->route('item.index');
+        return redirect()->route('item.index')->with('success', '購入が完了しました。');
     }
 
     public function cancel($item_id)
@@ -138,15 +137,18 @@ class PurchaseController extends Controller
 
     public function update(AddressRequest $request, $item_id)
     {
-
-        $paymentMethod = session('payment_method');
-        session([
-            'payment_method' => $paymentMethod,
+        $data = [
             'shipping_postcode' => $request->shipping_postcode,
             'shipping_address' => $request->shipping_address,
             'shipping_building' => $request->shipping_building,
             'is_editing_address' => true,
-        ]);
+        ];
+
+        if (session()->has('payment_method')) {
+            $data['payment_method'] = session('payment_method');
+        }
+
+        session($data);
 
         return redirect()->route('purchase.show', ['item_id' => $item_id]);
     }

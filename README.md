@@ -45,7 +45,7 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
-※「.env」にStripeのAPIキーを追加してください。
+※StripeのAPIキーを追加してください。
 
 ```
 STRIPE_KEY=公開可能キーを追加

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\ExhibitionRequest;
 
@@ -40,13 +38,14 @@ class ItemController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
+        $user = $request->user();
         $imagePath = null;
         if ($request->hasFile('item_image')) {
             $imagePath = $request->file('item_image')->store('item_images', 'public');
         }
 
         $item = Item::create([
-            'user_id'        => Auth::id(),
+            'user_id'        => $user->id,
             'name'           => $request->name,
             'brand_name'     => $request->brand_name,
             'description'    => $request->description,

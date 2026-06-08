@@ -1,3 +1,17 @@
+.alert_purchase--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert_purchase--error {
+    padding: 10px 0;
+    border-color: #f5c2c7;
+    background-color: #f8d7da;
+    color: #842029;
+}
+
 .item-tabs {
     margin-top: 30px;
     max-width: 100%;

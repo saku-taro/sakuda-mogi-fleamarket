@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const displayElement = document.getElementById('display-payment');
         const editLink = document.getElementById('edit-address-link');
 
-        // 1. 支払い方法の表示切替処理
         if (selectElement.value !== "") {
             displayElement.textContent = selectElement.options[selectElement.selectedIndex].text;
         }
@@ -104,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             displayElement.textContent = event.target.options[event.target.selectedIndex].text;
         });
 
-        // 2. 「変更する」リンクへの支払い方法引き継ぎ処理
         editLink.addEventListener('click', (event) => {
             event.preventDefault();
 
